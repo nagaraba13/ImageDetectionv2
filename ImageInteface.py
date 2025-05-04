@@ -36,7 +36,7 @@ class FaceRecognitionCNN(torch.nn.Module):
         return x
 
 def main():
-    st.title('Face Recognition Prediction')
+    st.title('Face Recognition Prediction by Balan Nagarajan')
 
     uploaded_file = st.file_uploader('Upload an image file (.pgm)', type=['pgm'])
 
