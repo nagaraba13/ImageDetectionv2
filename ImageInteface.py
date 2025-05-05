@@ -36,16 +36,63 @@ class FaceRecognitionCNN(torch.nn.Module):
         return x
 
 def main():
-    st.title('Face Recognition Prediction by Balan Nagarajan')
+    st.set_page_config(page_title="Face Recognition by Balan Nagarajan", layout="wide")
 
+    # Title
     st.markdown(
-        "For images used for training and image classes, refer to [this kaggle website](https://www.kaggle.com/datasets/kasikrit/att-database-of-faces)."
+        """
+        <h1 style="color: #2c3e50; text-align:center; margin-bottom: 10px;">
+            🧑‍💻 Face Recognition Prediction by Balan Nagarajan
+        </h1>
+        """,
+        unsafe_allow_html=True
     )
-    st.markdown(
-        "You can also use the kaggle website for sample images to test this app. Note that currently that only .pgm images can be input"
-    )
+
+    # Fancy info sections using columns and custom styling
+    col1, col2 = st.columns(2)
+    with col1:
+        st.markdown(
+            """
+            <div style="padding: 18px; background-color: #f0f2f6; border-radius: 12px; margin: 10px 0;">
+                <h3 style="color: #2c3e50; margin-bottom: 8px;">📚 Dataset Reference</h3>
+                <p style="font-size: 15px;">
+                    For training images and class details:<br>
+                    <a href="https://www.kaggle.com/datasets/kasikrit/att-database-of-faces" style="color: #3498db; text-decoration: none;" target="_blank">
+                        👉 Kaggle ATT Faces Dataset
+                    </a>
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    with col2:
+        st.markdown(
+            """
+            <div style="padding: 18px; background-color: #f0f2f6; border-radius: 12px; margin: 10px 0;">
+                <h3 style="color: #2c3e50; margin-bottom: 8px;">🖼️ Testing Tips</h3>
+                <p style="font-size: 15px;">
+                    Use <span style="color: #e74c3c; font-weight: bold;">.pgm images</span> from the dataset.<br>
+                    Sample images available on Kaggle.
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     uploaded_file = st.file_uploader('Upload an image file (.pgm)', type=['pgm'])
+
+    # Enhanced sidebar with card-like styling
+    st.sidebar.markdown(
+        """
+        <div style="padding: 18px; background-color: #2c3e50; border-radius: 12px; margin-bottom: 20px;">
+            <h2 style="color: white; margin: 0; text-align:center;">🧑🏫 Class Reference Guide</h2>
+            <p style="color: #ecf0f1; font-size: 13px; text-align:center;">
+                If you pick an image from <b>s2</b> folder, class label is <b>11</b>
+            </p>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
     # Your mapping
     mapping = {
@@ -56,11 +103,18 @@ def main():
         's7': 37, 's8': 38, 's9': 39
     }
 
-    st.sidebar.title("References folder to class label. For example if you pick an image from s2 folder, class label is 11")
-
-    # Show each key-value pair
+    # Display mapping in styled boxes
     for key, value in mapping.items():
-        st.sidebar.write(f"{key}: {value}")
+        st.sidebar.markdown(
+            f"""
+            <div style="padding: 8px 12px; background-color: #f8f9fa; border-radius: 8px; margin: 4px 0; 
+                        border-left: 5px solid #3498db; display: flex; justify-content: space-between;">
+                <span style="font-weight: 600; color: #2c3e50;">{key}</span>
+                <span style="color: #e74c3c; font-weight: bold;">{value}</span>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
 
     if uploaded_file is not None:
         # Load model
@@ -72,7 +126,9 @@ def main():
 
         # Read image
         image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
+        # Let the user pick the width
+        width = st.slider("Select image width (pixels)", min_value=100, max_value=1000, value=400)
+        st.image(image, caption='Uploaded Image', width=width)
 
         # Transform image
         input_tensor = data_transforms(image)
@@ -83,9 +139,14 @@ def main():
             output = model(input_tensor)
             pred_class = output.argmax(dim=1).item()
 
-        #st.write(f'Predicted class: {pred_class}')
         st.markdown(
-            f'<p style="font-size:32px; font-weight:bold; color:red;">Predicted class: {pred_class}</p>',
+            f'''
+            <div style="text-align:center; margin-top: 30px;">
+                <span style="font-size:36px; font-weight:bold; color:#e74c3c;">
+                    Predicted class: {pred_class}
+                </span>
+            </div>
+            ''',
             unsafe_allow_html=True
         )
 
