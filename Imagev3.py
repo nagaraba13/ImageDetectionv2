@@ -126,7 +126,9 @@ def main():
 
         # Read image
         image = Image.open(uploaded_file)
-        st.image(image, caption='Uploaded Image', use_column_width=True)
+        # Let the user pick the width
+        width = st.slider("Select image width (pixels)", min_value=100, max_value=1000, value=400)
+        st.image(image, caption='Uploaded Image', width=width)
 
         # Transform image
         input_tensor = data_transforms(image)
