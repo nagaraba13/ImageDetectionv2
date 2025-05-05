@@ -39,7 +39,10 @@ def main():
     st.title('Face Recognition Prediction by Balan Nagarajan')
 
     st.markdown(
-        "For sample images, refer to [this link](https://www.kaggle.com/datasets/kasikrit/att-database-of-faces)."
+        "For images used for training and image classes, refer to [this kaggle website](https://www.kaggle.com/datasets/kasikrit/att-database-of-faces)."
+    )
+    st.markdown(
+        "You can also use above website for sample images to test this app"
     )
 
     uploaded_file = st.file_uploader('Upload an image file (.pgm)', type=['pgm'])
