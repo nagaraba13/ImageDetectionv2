@@ -85,9 +85,9 @@ def main():
     st.sidebar.markdown(
         """
         <div style="padding: 18px; background-color: #2c3e50; border-radius: 12px; margin-bottom: 20px;">
-            <h2 style="color: white; margin: 0; text-align:center;">🧑🏫 Class Reference Guide</h2>
+            <h2 style="color: white; margin: 0; text-align:center;">🧑🏫 Class Labels follows Kaggle Folder Structure</h2>
             <p style="color: #ecf0f1; font-size: 13px; text-align:center;">
-                If you pick an image from <b>s2</b> folder, class label is <b>11</b>
+                For example an image in folder <b>s2</b>, class label is <b>11</b>
             </p>
         </div>
         """,
