@@ -42,7 +42,7 @@ def main():
         "For images used for training and image classes, refer to [this kaggle website](https://www.kaggle.com/datasets/kasikrit/att-database-of-faces)."
     )
     st.markdown(
-        "You can also use above website for sample images to test this app"
+        "You can also use the kaggle website for sample images to test this app. Note that currently that only .pgm images can be input"
     )
 
     uploaded_file = st.file_uploader('Upload an image file (.pgm)', type=['pgm'])
