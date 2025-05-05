@@ -38,6 +38,10 @@ class FaceRecognitionCNN(torch.nn.Module):
 def main():
     st.title('Face Recognition Prediction by Balan Nagarajan')
 
+    st.markdown(
+        "For sample images, refer to [this link](https://www.kaggle.com/datasets/kasikrit/att-database-of-faces)."
+    )
+
     uploaded_file = st.file_uploader('Upload an image file (.pgm)', type=['pgm'])
 
     # Your mapping
